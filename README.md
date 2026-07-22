@@ -1,85 +1,194 @@
 # AI-Based Autonomous Vehicle Competition
 
+## 🏆 Second Prize
 
-A computer-vision-based autonomous vehicle developed for the university-level
-**Autonomous Vehicle Using Image Processing and Artificial Intelligence
-Competition 2025**.
+![Second Prize](assets/second-prize.png)
 
-🏆 **Second Prize**
+A computer-vision-based autonomous vehicle developed for the university-level  
+**Autonomous Vehicle Using Image Processing and Artificial Intelligence Competition 2025**.
+
+The project achieved **Second Prize** in the competition.
+
+---
+
 ## 🎬 Demo
 
 [![Watch the autonomous vehicle demo](assets/demo-thumbnail.jpg)](assets/autonomous-vehicle-demo.mp4)
 
 > Click the image above to watch the autonomous vehicle running on the competition track.
 
+---
+
 ## 🏁 Competition Environment
 
-The vehicle was tested on a predefined track containing lane markings, intersections, traffic signs, and traffic-light scenarios.
+The vehicle was tested on a predefined track containing lane markings, intersections, traffic signs, traffic lights, and obstacle scenarios.
 
 ![Competition Track](assets/competition-track.jpg)
 
-## 📚 Project Documentation
+---
 
-Detailed project documentation, system design, algorithms, and development notes are available here:
+## 🔗 Project Overview
 
-[Read the full project documentation](https://cds-ute-documentation-project.readthedocs.io/en/latest/index.html)
+The system processes camera frames from a Unity-based simulator and sends steering and speed commands back through TCP communication.
 
-![Second Prize](assets/second-prize.png)
+It combines semantic segmentation, traffic-sign detection, person and vehicle detection, intersection handling, navigation logic, and PID-based steering control.
 
-## Project Overview
+### Processing Pipeline
 
-The project processes camera frames from a Unity-based simulator and sends
-steering and speed commands back through TCP. It combines semantic
-segmentation, traffic-sign detection, obstacle detection, intersection logic,
-and PID control.
+```text
+Unity Simulator
+      │
+      │ Camera frames through TCP
+      ▼
+Computer Vision System
+      ├── Road segmentation
+      ├── Traffic-sign detection
+      ├── Person and vehicle detection
+      ├── Intersection detection
+      └── Navigation decision
+      │
+      ▼
+PID Steering and Speed Control
+      │
+      │ Steering and speed commands
+      ▼
+Unity Simulator
+```
 
-## Main Features
+---
+
+## ✨ Main Features
 
 - Road segmentation using **DeepLabV3-ResNet50**
 - Custom traffic-sign detection using **Ultralytics YOLO**
 - Person and vehicle detection using **YOLOv8**
 - Intersection detection and turn-decision logic
-- Multi-frame stability filters for traffic signs and turn decisions
-- PID-based steering and adaptive speed control
-- TCP communication with a Unity simulator
-- Timed stopping when a person or vehicle is detected
+- Multi-frame stability filtering for traffic signs and navigation decisions
+- PID-based steering control
+- Adaptive speed control based on steering angle
+- Obstacle detection and vehicle stopping logic
+- TCP communication with a Unity-based simulator
+- Debug visualization for lane, object, and navigation processing
 
-## My Contribution
+---
 
-**Computer Vision Team Member**
+## 🚦 Traffic-Sign Classes
 
-- Contributed to image-processing and autonomous-navigation algorithms
-- Supported traffic-sign recognition and intersection handling
-- Participated in system integration, parameter tuning, and track testing
-
-## Repository Structure
+The traffic-sign detection system supports the following classes:
 
 ```text
-├── assets/                      # Competition images
-├── docs/                        # Architecture, code map, and results
-├── experiments/                 # Alternative development experiments
-├── legacy/                      # Older versions kept for reference
-├── src/
-│   ├── communication/           # Robust TCP JSON client
-│   ├── models/                  # DeepLabV3 model definition
-│   ├── config.py                # Paths and simulator configuration
-│   ├── competition_controller.py
-│   └── main.py
-├── tools/                       # Camera and detection utilities
-├── weights/                     # Local model weights (not committed)
-├── .env.example
-├── .gitignore
-├── requirements.txt
-└── README.md
+no_straight
+no_turn_left
+no_turn_right
+stop
+straight
+turn_left
+turn_right
+unknown
 ```
 
-## Setup
+---
 
-### Requirements
+## 🧠 Technologies
 
-- Python 3.8 or later
-- Unity simulator used by the project
-- Project-specific segmentation and traffic-sign weights
+### Programming
+
+- Python
+
+### Computer Vision and AI
+
+- OpenCV
+- PyTorch
+- Torchvision
+- Ultralytics YOLO
+- YOLOv8
+- DeepLabV3
+- ResNet50
+- Semantic Segmentation
+- Object Detection
+
+### Navigation and Control
+
+- PID Control
+- Lane Following
+- Intersection Detection
+- Traffic-Sign Recognition
+- Adaptive Speed Control
+- Multi-frame Stability Filtering
+
+### Communication and Simulation
+
+- TCP Socket Communication
+- JSON Data Processing
+- Unity-based Simulator
+
+---
+
+## 📁 Repository Structure
+
+```text
+ai-autonomous-vehicle-competition/
+├── assets/
+│   ├── autonomous-vehicle-demo.mp4
+│   ├── competition-track.jpg
+│   ├── demo-thumbnail.jpg
+│   └── second-prize.png
+│
+├── docs/
+│   ├── algorithm-overview.md
+│   ├── model-setup.md
+│   └── system-architecture.md
+│
+├── experiments/
+│   ├── opencv_lane_following_controller.py
+│   ├── pid_control.py
+│   ├── record.py
+│   ├── road.py
+│   ├── segmentation_obstacle_controller.py
+│   └── webcam_person_alert.py
+│
+├── legacy/
+│   ├── competition_controller_without_obstacle_detection.py
+│   └── opencv_lane_client_legacy.py
+│
+├── src/
+│   ├── communication/
+│   │   ├── __init__.py
+│   │   └── simulator_client.py
+│   │
+│   ├── control/
+│   │   ├── __init__.py
+│   │   └── pid.py
+│   │
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── segmentation.py
+│   │
+│   ├── navigation/
+│   │   ├── __init__.py
+│   │   └── filters.py
+│   │
+│   ├── vision/
+│   │   ├── __init__.py
+│   │   └── lane.py
+│   │
+│   ├── competition_controller.py
+│   ├── config.py
+│   └── main.py
+│
+├── tests/
+├── tools/
+├── weights/
+│
+├── .env.example
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
+
+---
+
+## ⚙️ Installation
 
 ### 1. Clone the repository
 
@@ -91,57 +200,150 @@ cd ai-autonomous-vehicle-competition
 ### 2. Create a virtual environment
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
+```
+
+Activate the environment on Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Activate the environment on Ubuntu or Linux:
+
+```bash
 source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-> NVIDIA Jetson devices may require NVIDIA-provided PyTorch and torchvision
-> packages instead of the standard PyPI builds.
+---
 
-### 3. Add model weights
+## 📦 Model Weights
 
-Place the project-specific weights in:
+The model weights are not included in this repository.
+
+Place the required files inside the `weights/` directory:
 
 ```text
-weights/segmentation.tar
-weights/detectsign.pt
+weights/
+├── segmentation.tar
+├── detectsign.pt
+└── yolov8n.pt
 ```
 
-See [`weights/README.md`](weights/README.md) for configuration options.
+The expected model paths can be configured through `.env.example`:
 
-### 4. Start the simulator and run
+```env
+SEGMENTATION_WEIGHT=weights/segmentation.tar
+TRAFFIC_SIGN_WEIGHT=weights/detectsign.pt
+OBJECT_DETECTION_WEIGHT=weights/yolov8n.pt
+```
+
+Do not upload private datasets, restricted model files, API keys, passwords, or access tokens.
+
+---
+
+## 🖥️ Simulator Configuration
+
+The default simulator connection is:
+
+```env
+SIMULATOR_HOST=127.0.0.1
+SIMULATOR_PORT=54321
+```
+
+The simulator sends camera frames to the Python controller through TCP. The controller processes each frame and sends steering and speed commands back to the simulator.
+
+---
+
+## ▶️ Running the Project
+
+Start the Unity-based simulator first.
+
+Then run:
 
 ```bash
 python src/main.py
 ```
 
-Default simulator address: `127.0.0.1:54321`.
+The full competition controller is located at:
 
-## Important Fixes in This Clean Version
+```text
+src/competition_controller.py
+```
 
-- Removed hard-coded `/mnt/big/...` model paths
-- Added configurable model and simulator settings
-- Replaced unsafe single-`recv` JSON parsing with buffered TCP decoding
-- Fixed an invalid confidence threshold (`50.6` → `0.6`)
-- Renamed and separated main, experimental, utility, and legacy scripts
-- Added readable missing-weight errors, unit tests, CI, and project documentation
+Some scripts inside `experiments/` and `legacy/` are retained as technical references from earlier development stages.
 
-## Current Limitations
+---
 
-- Custom segmentation and traffic-sign weights are not included
-- The original Unity simulator is required for complete execution
-- Some experimental scripts still reflect the competition development stage
-- Detection and navigation metrics have not yet been formally benchmarked
+## 👨‍💻 My Contributions
 
-## Future Work
+**Computer Vision Team Member**
 
-- Split the large controller into smaller vision, control, and state modules
-- Benchmark FPS, latency, and navigation success rate
-- Export models to ONNX/TensorRT for edge deployment
-- Add automated tests for TCP parsing and navigation-state transitions
+- Contributed to the development of computer vision algorithms
+- Supported road segmentation and lane-following implementation
+- Worked on traffic-sign recognition and intersection-handling logic
+- Assisted with person and vehicle detection
+- Participated in autonomous navigation development
+- Supported system integration and competition-track testing
+- Helped tune steering, speed, confidence thresholds, and stability parameters
 
-## Achievement
+---
 
-The project received **Second Prize** in the 2025 university autonomous
-vehicle competition using image processing and artificial intelligence.
+## 🏅 Achievement
+
+**Second Prize**  
+Autonomous Vehicle Using Image Processing and Artificial Intelligence Competition 2025
+
+The competition required the vehicle to navigate a predefined track containing lane markings, intersections, traffic signs, traffic lights, and obstacle scenarios.
+
+---
+
+## 📚 Full Documentation
+
+Detailed documentation about the system design, algorithms, development process, and competition project is available here:
+
+[Read the full project documentation](https://cds-ute-documentation-project.readthedocs.io/en/latest/index.html)
+
+---
+
+## ⚠️ Limitations
+
+- The project depends on a Unity-based simulator that is not included in this repository.
+- Custom traffic-sign and segmentation model weights are not publicly included.
+- The original development environment may require additional configuration.
+- Some experimental scripts are retained for reference and may not represent the final competition version.
+- Obstacle detection was developed as a competition prototype rather than a production-level autonomous-driving system.
+
+---
+
+## 🚀 Future Improvements
+
+- Convert PyTorch models to ONNX
+- Optimize inference using TensorRT
+- Improve object-distance estimation
+- Add object tracking using ByteTrack or DeepSORT
+- Improve lane and intersection detection under changing lighting conditions
+- Add automated performance benchmarks
+- Improve software modularity and unit-test coverage
+- Add support for real embedded hardware deployment
+
+---
+
+## 👥 Contributors
+
+- **Le Tu Thien An** — Computer Vision Team Member
+- Other project members contributed to hardware, software integration, vehicle control, and competition testing.
+
+---
+
+## 📄 Project Status
+
+This repository is maintained as a technical portfolio and record of the autonomous vehicle developed for the 2025 university competition.
+
+The source code has been reorganized to improve readability, documentation, and maintainability.
