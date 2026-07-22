@@ -1,0 +1,7 @@
+# Jetson Nano may require NVIDIA-compatible PyTorch/torchvision wheels.
+numpy
+opencv-python
+Pillow
+torch
+torchvision
+ultralytics
