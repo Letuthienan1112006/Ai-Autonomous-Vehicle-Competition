@@ -11,17 +11,25 @@ The project achieved **Second Prize** in the competition.
 
 ---
 
-## 🎬 Demo
+## 🎬 Simulation Demo
 
-[![Watch the autonomous vehicle demo](assets/demo-thumbnail.jpg)](assets/autonomous-vehicle-demo.mp4)
+[![Watch the autonomous vehicle simulation](assets/demo-thumbnail.jpg)](https://youtu.be/2UDqsYv0B6Y)
 
-> Click the image above to watch the autonomous vehicle running on the competition track.
+> Click the image above to watch the Unity simulation featuring semantic road segmentation, traffic-sign detection, object detection, and PID-based autonomous navigation.
+
+---
+
+## 🚗 Competition Vehicle Demo
+
+[Watch the physical autonomous vehicle running on the competition track](assets/autonomous-vehicle-demo.mp4)
+
+> This video shows the physical vehicle during testing on the competition track.
 
 ---
 
 ## 🏁 Competition Environment
 
-The vehicle was tested on a predefined track containing lane markings, intersections, traffic signs, traffic lights, and obstacle scenarios.
+The vehicle was tested on a predefined track containing lane markings, curves, intersections, traffic signs, traffic lights, and obstacle scenarios.
 
 ![Competition Track](assets/competition-track.jpg)
 
@@ -29,9 +37,20 @@ The vehicle was tested on a predefined track containing lane markings, intersect
 
 ## 🔗 Project Overview
 
-The system processes camera frames from a Unity-based simulator and sends steering and speed commands back through TCP communication.
+The project combines computer vision, deep learning, navigation logic, and vehicle control to enable a small autonomous vehicle to navigate a predefined competition track.
 
-It combines semantic segmentation, traffic-sign detection, person and vehicle detection, intersection handling, navigation logic, and PID-based steering control.
+During simulation testing, the Unity-based simulator sends camera frames to the Python controller through TCP communication. The controller processes each frame, determines the driving decision, and sends steering and speed commands back to the simulator.
+
+The system integrates:
+
+- Semantic road segmentation
+- Lane-following logic
+- Traffic-sign recognition
+- Person and vehicle detection
+- Intersection detection
+- Turn-decision logic
+- PID-based steering control
+- Adaptive speed control
 
 ### Processing Pipeline
 
@@ -42,6 +61,7 @@ Unity Simulator
       ▼
 Computer Vision System
       ├── Road segmentation
+      ├── Lane detection
       ├── Traffic-sign detection
       ├── Person and vehicle detection
       ├── Intersection detection
@@ -60,21 +80,22 @@ Unity Simulator
 ## ✨ Main Features
 
 - Road segmentation using **DeepLabV3-ResNet50**
+- Lane extraction and center-line estimation
 - Custom traffic-sign detection using **Ultralytics YOLO**
 - Person and vehicle detection using **YOLOv8**
 - Intersection detection and turn-decision logic
 - Multi-frame stability filtering for traffic signs and navigation decisions
 - PID-based steering control
 - Adaptive speed control based on steering angle
-- Obstacle detection and vehicle stopping logic
+- Obstacle detection and vehicle-stopping logic
 - TCP communication with a Unity-based simulator
-- Debug visualization for lane, object, and navigation processing
+- Debug visualization for segmentation, detection, and navigation processing
 
 ---
 
 ## 🚦 Traffic-Sign Classes
 
-The traffic-sign detection system supports the following classes:
+The traffic-sign detection model supports the following classes:
 
 ```text
 no_straight
@@ -106,6 +127,7 @@ unknown
 - ResNet50
 - Semantic Segmentation
 - Object Detection
+- Image Processing
 
 ### Navigation and Control
 
@@ -115,11 +137,13 @@ unknown
 - Traffic-Sign Recognition
 - Adaptive Speed Control
 - Multi-frame Stability Filtering
+- Obstacle-Stopping Logic
 
 ### Communication and Simulation
 
 - TCP Socket Communication
 - JSON Data Processing
+- Base64 Image Transmission
 - Unity-based Simulator
 
 ---
@@ -203,13 +227,13 @@ cd ai-autonomous-vehicle-competition
 python -m venv .venv
 ```
 
-Activate the environment on Windows:
+Activate the virtual environment on Windows:
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Activate the environment on Ubuntu or Linux:
+Activate the virtual environment on Ubuntu or Linux:
 
 ```bash
 source .venv/bin/activate
@@ -225,7 +249,7 @@ pip install -r requirements.txt
 
 ## 📦 Model Weights
 
-The model weights are not included in this repository.
+The trained model weights are not included in this repository.
 
 Place the required files inside the `weights/` directory:
 
@@ -236,7 +260,7 @@ weights/
 └── yolov8n.pt
 ```
 
-The expected model paths can be configured through `.env.example`:
+The expected model paths can be configured using environment variables:
 
 ```env
 SEGMENTATION_WEIGHT=weights/segmentation.tar
@@ -257,7 +281,15 @@ SIMULATOR_HOST=127.0.0.1
 SIMULATOR_PORT=54321
 ```
 
-The simulator sends camera frames to the Python controller through TCP. The controller processes each frame and sends steering and speed commands back to the simulator.
+The simulator sends camera frames to the Python controller through TCP communication.
+
+The controller:
+
+1. Receives and decodes the camera frame.
+2. Performs road segmentation and object detection.
+3. Detects traffic signs and intersections.
+4. Calculates the steering angle and vehicle speed.
+5. Sends the control command back to the simulator.
 
 ---
 
@@ -265,7 +297,13 @@ The simulator sends camera frames to the Python controller through TCP. The cont
 
 Start the Unity-based simulator first.
 
-Then run:
+Then open a terminal in the project directory and activate the Python environment:
+
+```bash
+source .venv/bin/activate
+```
+
+Run the main program:
 
 ```bash
 python src/main.py
@@ -292,15 +330,23 @@ Some scripts inside `experiments/` and `legacy/` are retained as technical refer
 - Participated in autonomous navigation development
 - Supported system integration and competition-track testing
 - Helped tune steering, speed, confidence thresholds, and stability parameters
+- Tested the vision and navigation system in both simulation and physical track environments
 
 ---
 
 ## 🏅 Achievement
 
 **Second Prize**  
-Autonomous Vehicle Using Image Processing and Artificial Intelligence Competition 2025
+**Autonomous Vehicle Using Image Processing and Artificial Intelligence Competition 2025**
 
-The competition required the vehicle to navigate a predefined track containing lane markings, intersections, traffic signs, traffic lights, and obstacle scenarios.
+The competition required the autonomous vehicle to navigate a predefined track containing:
+
+- Lane markings
+- Curved roads
+- Intersections
+- Traffic signs
+- Traffic lights
+- Obstacles and other vehicles
 
 ---
 
@@ -319,6 +365,7 @@ Detailed documentation about the system design, algorithms, development process,
 - The original development environment may require additional configuration.
 - Some experimental scripts are retained for reference and may not represent the final competition version.
 - Obstacle detection was developed as a competition prototype rather than a production-level autonomous-driving system.
+- Performance may vary depending on lighting conditions, simulator settings, and camera input.
 
 ---
 
@@ -329,16 +376,18 @@ Detailed documentation about the system design, algorithms, development process,
 - Improve object-distance estimation
 - Add object tracking using ByteTrack or DeepSORT
 - Improve lane and intersection detection under changing lighting conditions
-- Add automated performance benchmarks
+- Add automated FPS and latency benchmarks
 - Improve software modularity and unit-test coverage
+- Add camera calibration and perspective transformation
 - Add support for real embedded hardware deployment
+- Improve the integration between perception, planning, and vehicle control
 
 ---
 
 ## 👥 Contributors
 
 - **Le Tu Thien An** — Computer Vision Team Member
-- Other project members contributed to hardware, software integration, vehicle control, and competition testing.
+- Other project members contributed to hardware development, vehicle control, software integration, system testing, and competition preparation.
 
 ---
 
@@ -346,4 +395,4 @@ Detailed documentation about the system design, algorithms, development process,
 
 This repository is maintained as a technical portfolio and record of the autonomous vehicle developed for the 2025 university competition.
 
-The source code has been reorganized to improve readability, documentation, and maintainability.
+The original source code has been reorganized to improve readability, documentation, maintainability, and project presentation.
