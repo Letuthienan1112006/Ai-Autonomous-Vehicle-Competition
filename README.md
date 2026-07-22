@@ -1,12 +1,28 @@
 # AI-Based Autonomous Vehicle Competition
 
-![CI](https://github.com/Letuthienan1112006/ai-autonomous-vehicle-competition/actions/workflows/ci.yml/badge.svg)
 
 A computer-vision-based autonomous vehicle developed for the university-level
 **Autonomous Vehicle Using Image Processing and Artificial Intelligence
 Competition 2025**.
 
 🏆 **Second Prize**
+## 🎬 Demo
+
+[![Watch the autonomous vehicle demo](assets/demo-thumbnail.jpg)](assets/autonomous-vehicle-demo.mp4)
+
+> Click the image above to watch the autonomous vehicle running on the competition track.
+
+## 🏁 Competition Environment
+
+The vehicle was tested on a predefined track containing lane markings, intersections, traffic signs, and traffic-light scenarios.
+
+![Competition Track](assets/competition-track.jpg)
+
+## 📚 Project Documentation
+
+Detailed project documentation, system design, algorithms, and development notes are available here:
+
+[Read the full project documentation](https://cds-ute-documentation-project.readthedocs.io/en/latest/index.html)
 
 ![Second Prize](assets/second-prize.png)
 
