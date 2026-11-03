@@ -2,7 +2,10 @@
 
 ## 🏆 Second Prize
 
-![Second Prize](assets/second-prize.png)(<img width="1536" height="2048" alt="3a8ace2207e287bcdef3" src="https://github.com/user-attachments/assets/679a0bb3-cc74-49c8-a817-924b664c5f51" />
+<p align="center">
+  <img src="assets/second-prize.png" alt="Second Prize" height="420">
+  <img src="https://github.com/user-attachments/assets/679a0bb3-cc74-49c8-a817-924b664c5f51" alt="Second Prize certificate" height="420">
+</p>
 
 
 A computer-vision-based autonomous vehicle developed for the university-level  
