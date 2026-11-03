@@ -2,7 +2,8 @@
 
 ## 🏆 Second Prize
 
-![Second Prize](assets/second-prize.png)
+![Second Prize](assets/second-prize.png)(<img width="1536" height="2048" alt="3a8ace2207e287bcdef3" src="https://github.com/user-attachments/assets/679a0bb3-cc74-49c8-a817-924b664c5f51" />
+
 
 A computer-vision-based autonomous vehicle developed for the university-level  
 **Autonomous Vehicle Using Image Processing and Artificial Intelligence Competition 2025**.
